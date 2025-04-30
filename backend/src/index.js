@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const app = epxress();
 import authRoutes from "./routes/authRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
 import connectMongoDb from "./dbConnection.js";
 
 //Database connection
@@ -18,6 +19,7 @@ app.use(epxress.json());
 
 //Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/message", messageRoutes);
 
 app.listen(process.env.PORT, () =>
   console.log(`SERVER STARTED AT PORT ${process.env.PORT}`)
