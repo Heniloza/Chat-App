@@ -1,6 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
@@ -12,12 +12,10 @@ import { Loader } from "lucide-react";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
-  const navigate = useNavigate();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-  console.log({ authUser });
 
   if (isCheckingAuth && !authUser)
     return (
@@ -32,23 +30,23 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={authUser ? <HomePage /> : navigate("/signup")}
+          element={authUser ? <HomePage /> : <Navigate to="/login" />}
         />
         <Route
           path="/signup"
-          element={!authUser ? <SignupPage /> : navigate("/")}
+          element={!authUser ? <SignupPage /> : <Navigate to="/" />}
         />
         <Route
           path="/login"
-          element={!authUser ? <LoginPage /> : navigate("/")}
+          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
         <Route
           path="/settings"
-          element={authUser ? <SettingsPage /> : navigate("/login")}
+          element={authUser ? <SettingsPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/profile"
-          element={authUser ? <profilePage /> : navigate("/login")}
+          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>
