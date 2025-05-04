@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore.js";
 import { Eye, EyeOff, Loader2, MessageSquare, User2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern.jsx";
+import toast from "react-hot-toast";
 
 function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,10 +14,25 @@ function SignupPage() {
     password: "",
   });
 
-  const validateForm = () => {};
+  const validateForm = () => {
+    if (!formData.name.trim()) return toast.error("Name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      return toast.error("Invalid email format");
+    if (!formData.password.trim()) return toast.error("Password is required");
+    if (formData.password.length < 6)
+      return toast.error("Password must be at least 6 character");
+
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const success = validateForm();
+
+    if (success === true) {
+      signup(formData);
+    }
   };
 
   return (

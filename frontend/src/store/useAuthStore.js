@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useAuthStore = create((set) => ({
   authUser: null,
@@ -21,7 +23,28 @@ export const useAuthStore = create((set) => ({
   },
 
   signup: async (data) => {
+    set({ isSigninUp: true });
     try {
-    } catch (error) {}
+      const response = await axiosInstance.post("/auth/signup", data);
+      toast.success("Account created successfully");
+      set({ authUser: response.data });
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isSigninUp: false });
+    }
+  },
+
+  logout: async () => {
+    try {
+      await axiosInstance.post("/auth/logout");
+      set({
+        authUser: null,
+      });
+      toast.success("Logged out successfully.");
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   },
 }));
