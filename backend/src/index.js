@@ -26,7 +26,7 @@ app.use(epxress.json());
 
 //Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/api/messages", messageRoutes);
 
 app.listen(process.env.PORT, () =>
   console.log(`SERVER STARTED AT PORT ${process.env.PORT}`)
