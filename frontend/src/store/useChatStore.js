@@ -13,7 +13,10 @@ export const useChatStore = create((set) => ({
     set({ isUsersLoading: true });
     try {
       const response = await axiosInstance.get("/messages/users");
-      set({ users: response.data });
+      console.log(response);
+
+      set({ users: response.data.filterUsers });
+      console.log("Users is", users);
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
