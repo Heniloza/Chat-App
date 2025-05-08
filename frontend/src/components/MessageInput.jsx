@@ -36,7 +36,6 @@ function MessageInput() {
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
-      console.log("After reset", "", null);
     } catch (error) {
       console.error("Failed to send mesage", error);
     }
