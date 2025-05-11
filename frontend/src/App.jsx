@@ -43,9 +43,10 @@ function App() {
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
+
         <Route
-          path="/settings"
-          element={authUser ? <SettingsPage /> : <Navigate to="/login" />}
+          path="/profile"
+          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
       <Toaster />
