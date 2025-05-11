@@ -1,4 +1,4 @@
-import epxress from "express";
+import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -24,15 +24,15 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(epxress.urlencoded(true));
-app.use(epxress.json());
+app.use(express.urlencoded(true));
+app.use(express.json());
 
 //Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(epxress.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
